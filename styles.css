@@ -474,6 +474,30 @@ button { font-family: inherit; border: none; background: none; }
 .btn--red { background: var(--color-red); color: var(--color-white); }
 .btn--red:hover { background: var(--color-red-dark); box-shadow: var(--shadow-red); }
 
+/* Botón WhatsApp */
+.btn--whatsapp {
+  background: #25D366;
+  color: var(--color-white);
+  border: none;
+}
+.btn--whatsapp:hover {
+  background: #1EB854;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.40);
+}
+
+/* Botón Linktree */
+.btn--linktree {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn--linktree:hover {
+  background: rgba(57,176,136,0.10);
+  border-color: #39B088;
+  color: #39B088;
+  box-shadow: 0 0 16px rgba(57,176,136,0.18);
+}
+
 .btn-arrow { transition: transform var(--transition-base); }
 .btn:hover .btn-arrow { transform: translateX(5px); }
 
@@ -637,6 +661,38 @@ html[data-theme="light"] .hero__title-accent { -webkit-text-stroke-color:var(--c
 .metric__label { font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-muted); text-transform:uppercase; letter-spacing:0.1em; margin-top:0.35rem; }
 .metric__icon { width:40px; height:40px; background:rgba(232,0,61,0.12); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .metric__icon svg { width:20px; height:20px; fill:var(--color-red); }
+
+/* Tarjeta métrica principal clickeable */
+.metric-card--link {
+  transition: border-color var(--transition-base), box-shadow var(--transition-base),
+    transform var(--transition-base), background var(--transition-base) !important;
+}
+.metric-card--link:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+  background: var(--color-surface-2);
+}
+.metric-card__arrow {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; align-self: center;
+  transition: border-color var(--transition-base), background var(--transition-base), transform var(--transition-base);
+}
+.metric-card__arrow svg {
+  width: 16px; height: 16px;
+  stroke: var(--color-text-muted);
+  transition: stroke var(--transition-base), transform var(--transition-base);
+}
+.metric-card--link:hover .metric-card__arrow {
+  border-color: var(--color-primary);
+  background: rgba(0,87,184,0.12);
+  transform: translateX(3px);
+}
+.metric-card--link:hover .metric-card__arrow svg {
+  stroke: var(--color-accent);
+}
 
 /* ══════════════════════════════════════════════════
    IDENTIDAD

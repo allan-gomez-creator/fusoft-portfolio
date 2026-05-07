@@ -150,29 +150,41 @@
       </div>
 
       <div class="hero__metrics" aria-label="Métricas fUSoft">
-        <div class="metric-card metric-card--featured reveal">
-          <div class="metric__icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg></div>
-          <div>
+
+        <!-- Tarjeta principal clickeable → va al portafolio -->
+        <div class="metric-card metric-card--featured metric-card--link reveal" id="metricPortafolio" role="button" tabindex="0" aria-label="Ver portafolio de productos">
+          <div class="metric__icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg>
+          </div>
+          <div style="flex:1;">
             <div class="metric__number" data-count="3">3</div>
             <div class="metric__label">Productos en portafolio activo</div>
           </div>
+          <div class="metric-card__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
         </div>
+
         <div class="metric-card reveal reveal-delay-1">
-          <div class="metric__number metric__number--accent">99.8%</div>
-          <div class="metric__label">Disponibilidad SLA</div>
+          <div class="metric__number metric__number--accent">100%</div>
+          <div class="metric__label">Desarrollo a la medida</div>
         </div>
+
         <div class="metric-card reveal reveal-delay-2">
-          <div class="metric__number">ISO</div>
-          <div class="metric__label">27001 · 9001</div>
+          <div class="metric__number">IA</div>
+          <div class="metric__label">Tecnología central</div>
         </div>
+
         <div class="metric-card reveal reveal-delay-3">
-          <div class="metric__number">API</div>
-          <div class="metric__label">First · REST / gRPC</div>
+          <div class="metric__number metric__number--red">B2B</div>
+          <div class="metric__label">Enfocado en empresas</div>
         </div>
+
         <div class="metric-card reveal reveal-delay-4">
-          <div class="metric__number metric__number--red">CI/CD</div>
-          <div class="metric__label">Entrega continua</div>
+          <div class="metric__number">REAL</div>
+          <div class="metric__label">Problemas y soluciones reales</div>
         </div>
+
       </div>
     </div>
   </div>
@@ -380,10 +392,26 @@
         <p class="contact-card__desc">Cuéntenos el contexto de su necesidad tecnológica. Un especialista analizará su caso y le propondrá un esquema de solución sin compromiso en 48 horas hábiles.</p>
       </div>
       <div class="contact-card__actions">
-        <a href="mailto:contacto@fusoft.co" class="btn btn--red">Enviar consulta <svg class="btn-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="tel:+57XXXXXXXXXX" class="btn btn--ghost">Llamar directamente</a>
+        <a href="mailto:fabricasoluciones@uniempresarial.edu.co" class="btn btn--red">Enviar consulta <svg class="btn-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+        <!-- Botón WhatsApp -->
+        <a href="https://wa.me/57XXXXXXXXXX?text=Hola%20fUSoft%2C%20estoy%20interesado%20en%20conocer%20m%C3%A1s%20sobre%20sus%20soluciones%20tecnol%C3%B3gicas.%20%C2%BFPodr%C3%ADan%20brindarme%20m%C3%A1s%20informaci%C3%B3n%3F" target="_blank" rel="noopener noreferrer" class="btn btn--whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;flex-shrink:0;">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Contactar por WhatsApp
+        </a>
+
+        <!-- Linktree -->
+        <a href="https://linktr.ee/fabricadesoluciones1" target="_blank" rel="noopener noreferrer" class="btn btn--linktree">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:16px;height:16px;flex-shrink:0;">
+            <path d="M7.953 15.066c-.08.163-.08.324-.08.486.08.517.528.897 1.052.897h6.15c.527 0 .974-.38 1.052-.897 0-.162 0-.323-.08-.486L13.99 9.797h1.61l-1.934-2.74 1.934-2.822H7.953l1.934 2.822-1.934 2.74h1.609l-2.047 5.27h.438zm4.048 3.396c-.08.163-.08.324-.08.487 0 .517.527.973 1.133.973.607 0 1.134-.456 1.134-.973 0-.163 0-.324-.08-.487l-.527-1.3h-1.053l-.527 1.3z"/>
+          </svg>
+          Ver todas las redes sociales
+        </a>
+
         <div class="contact-info"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Bogotá D.C., Colombia</div>
-        <div class="contact-info"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>contacto@fusoft.co</div>
+        <div class="contact-info"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>fabricasoluciones@uniempresarial.edu.co</div>
       </div>
     </div>
   </div>
@@ -404,7 +432,7 @@
         <p class="footer__tagline">Desarrollo de software empresarial con rigor de ingeniería y foco en la operabilidad a largo plazo.</p>
       </div>
       <nav aria-label="Productos"><div class="footer__col-title">// Productos</div><ul class="footer__links"><li><a href="#portafolio" class="footer__link">Impulso IA</a></li><li><a href="#portafolio" class="footer__link">Sistema ATS</a></li><li><a href="#portafolio" class="footer__link">60 herramientas de IA</a></li></ul></nav>
-      <nav aria-label="Empresa"><div class="footer__col-title">// Empresa</div><ul class="footer__links"><li><a href="#identidad" class="footer__link">Identidad</a></li><li><a href="#metodologia" class="footer__link">Metodología</a></li><li><a href="#contacto" class="footer__link">Contacto</a></li><li><a href="#" class="footer__link">Documentación</a></li></ul></nav>
+      <nav aria-label="Empresa"><div class="footer__col-title">// Empresa</div><ul class="footer__links"><li><a href="#identidad" class="footer__link">Identidad</a></li><li><a href="#metodologia" class="footer__link">Metodología</a></li><li><a href="#contacto" class="footer__link">Contacto</a></li><li><a href="https://linktr.ee/fabricadesoluciones1" target="_blank" rel="noopener noreferrer" class="footer__link">Redes sociales</a></li></ul></nav>
       <div><div class="footer__col-title">// Cumplimiento</div><ul class="footer__links"><li><span class="footer__link" style="cursor:default;">ISO 9001:2015</span></li><li><span class="footer__link" style="cursor:default;">ISO 27001:2022</span></li><li><span class="footer__link" style="cursor:default;">Ley 1581 / GDPR</span></li><li><span class="footer__link" style="cursor:default;">NIST CSF</span></li></ul></div>
     </div>
     <div class="footer__bottom">
@@ -800,7 +828,29 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.c
 // Botón CTA dentro del modal → cerrar modal y hacer scroll a contacto
 document.getElementById('modalCta').addEventListener('click', () => { closeModal(); });
 
-/* ── 16. HIGHLIGHT NAV ACTIVO ── */
+/* ── 16. TARJETA MÉTRICA → SCROLL A PORTAFOLIO ── */
+const metricPortafolio = document.getElementById('metricPortafolio');
+if (metricPortafolio) {
+  const scrollToPortafolio = () => {
+    const target = document.querySelector('#portafolio');
+    if (!target) return;
+    window.scrollTo({
+      top: target.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 16,
+      behavior: 'smooth'
+    });
+  };
+  metricPortafolio.addEventListener('click', scrollToPortafolio);
+  metricPortafolio.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToPortafolio(); }
+  });
+  // Cursor al pasar sobre esta tarjeta
+  if (!isTouchDevice) {
+    metricPortafolio.addEventListener('mouseenter', () => cursorEl.className = 'cursor cursor--btn');
+    metricPortafolio.addEventListener('mouseleave', () => cursorEl.className = 'cursor');
+  }
+}
+
+/* ── 17. HIGHLIGHT NAV ACTIVO ── */
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.navbar__nav .nav__link');
 window.addEventListener('scroll', () => {
