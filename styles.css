@@ -1,0 +1,1403 @@
+/* ================================================================
+   fUSoft – Fábrica de Soluciones Tecnológicas
+   styles.css  |  Hoja de estilos principal
+   Paleta: Azul #0057B8 · Cian #00C2FF · Rojo #E8003D
+   ================================================================ */
+
+/* ============================================================
+   1. VARIABLES DE MARCA – fUSoft Corporate Identity
+   ============================================================ */
+:root {
+  /* ── Paleta de colores corporativa ── */
+  --color-primary:      #0057B8;          /* Azul principal fUSoft            */
+  --color-primary-dark: #003E8A;          /* Azul profundo – hover, énfasis   */
+  --color-accent:       #00C2FF;          /* Cian eléctrico – highlights       */
+  --color-red:          #E8003D;          /* Rojo corporativo fUSoft           */
+  --color-red-dark:     #B5002E;          /* Rojo profundo – hover             */
+  --color-red-glow:     rgba(232, 0, 61, 0.22);
+
+  --color-bg:           #07090F;          /* Negro azulado – fondo base        */
+  --color-surface:      #0D1117;          /* Superficie de tarjeta             */
+  --color-surface-2:    #161B27;          /* Superficie elevada                */
+  --color-border:       #1E2D45;          /* Bordes sutiles                    */
+  --color-border-glow:  rgba(0, 194, 255, 0.25);
+
+  --color-text:         #E8EEF7;          /* Texto principal                   */
+  --color-text-muted:   #7B8FAD;          /* Texto secundario                  */
+  --color-text-faint:   #3D5070;          /* Texto muy sutil                   */
+  --color-white:        #FFFFFF;
+  --color-success:      #00D48A;
+
+  --color-tag-bg:       rgba(0, 87, 184, 0.15);
+  --color-tag-border:   rgba(0, 87, 184, 0.40);
+
+  /* ── Tipografía ── */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Espaciado ── */
+  --gap-xs:  0.5rem;
+  --gap-sm:  1rem;
+  --gap-md:  1.5rem;
+  --gap-lg:  2.5rem;
+  --gap-xl:  4rem;
+  --gap-2xl: 7rem;
+
+  /* ── Radios ── */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* ── Sombras ── */
+  --shadow-card:  0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-hover: 0 16px 48px rgba(0, 87, 184, 0.22), 0 0 0 1px rgba(0, 194, 255, 0.18);
+  --shadow-red:   0 8px 32px rgba(232, 0, 61, 0.28), 0 0 0 1px rgba(232, 0, 61, 0.18);
+
+  /* ── Transiciones ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 280ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --transition-slow: 480ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* ── Layout ── */
+  --container-max: 1280px;
+  --navbar-h: 68px;
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* Tres gradientes: azul (top), rojo (bottom-right), textura grain */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0, 87, 184, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(232, 0, 61, 0.07) 0%, transparent 70%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: rgba(0, 194, 255, 0.25);
+  color: var(--color-white);
+}
+
+a    { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+img  { display: block; max-width: 100%; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+/* ── Cuadrícula decorativa de fondo (circuit-board) ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(30, 45, 69, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 45, 69, 0.4) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 80%);
+}
+
+/* ============================================================
+   3. UTILIDADES
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--gap-lg);
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Etiqueta de sección ── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background: var(--color-tag-bg);
+  border: 1px solid var(--color-tag-border);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--gap-md);
+}
+
+.section-tag::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* Variante roja para secciones de acción (portafolio, contacto) */
+.section-tag--red {
+  color: var(--color-red);
+  background: rgba(232, 0, 61, 0.08);
+  border-color: rgba(232, 0, 61, 0.30);
+}
+
+.section-tag--red::before {
+  background: var(--color-red);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.text-accent   { color: var(--color-accent); }
+.text-primary  { color: var(--color-primary); }
+.text-red      { color: var(--color-red); }
+.text-muted    { color: var(--color-text-muted); }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   4. BOTONES
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--transition-base),
+    color            var(--transition-base),
+    box-shadow       var(--transition-base),
+    transform        var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn:active { transform: translateY(1px); }
+
+/* Botón primario – Azul con glow rojo en hover */
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+.btn--primary:hover {
+  background: var(--color-primary-dark);
+  box-shadow: 0 8px 24px rgba(0, 87, 184, 0.40), 0 0 0 1px rgba(232, 0, 61, 0.25);
+}
+
+/* Botón outline / secundario */
+.btn--outline {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid rgba(0, 194, 255, 0.35);
+}
+.btn--outline:hover {
+  background: rgba(0, 194, 255, 0.08);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 16px rgba(0, 194, 255, 0.15);
+}
+
+/* Botón ghost */
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn--ghost:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  border-color: rgba(0, 87, 184, 0.4);
+}
+
+/* Botón rojo (CTA secundario) */
+.btn--red {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+.btn--red:hover {
+  background: var(--color-red-dark);
+  box-shadow: var(--shadow-red);
+}
+
+/* Flecha animada en botones */
+.btn-arrow { transition: transform var(--transition-base); }
+.btn:hover .btn-arrow { transform: translateX(4px); }
+
+/* ============================================================
+   5. SCROLL INDICATOR
+   Gradiente: Rojo → Azul → Cian
+   ============================================================ */
+.scroll-indicator {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--color-red),
+    var(--color-primary),
+    var(--color-accent)
+  );
+  z-index: 1001;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* ============================================================
+   6. NAVBAR
+   ============================================================ */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--navbar-h);
+  z-index: 1000;
+  transition: background var(--transition-slow), box-shadow var(--transition-slow);
+}
+
+#navbar.scrolled {
+  background: rgba(7, 9, 15, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 var(--color-border), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* ── Logo ──
+   Para producción reemplazar .navbar__logo con:
+   <a href="#hero" class="navbar__logo">
+     <img src="./assets/logo-fusoft.svg" alt="fUSoft" width="140" height="36" />
+   </a>
+*/
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-white);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Esquina roja del logo mark */
+.logo-mark::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 10px; height: 10px;
+  background: var(--color-red);
+  border-radius: 0 var(--radius-sm) 0 var(--radius-sm);
+}
+
+.logo-text {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.06em;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+/* "Soft" en rojo */
+.logo-text span { color: var(--color-red); }
+
+.logo-descriptor {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 0.1rem;
+}
+
+/* ── Navegación desktop ── */
+.navbar__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-lg);
+}
+
+.nav__link {
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  position: relative;
+  transition: color var(--transition-base);
+  padding: 0.3rem 0;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 100%;
+  height: 1px;
+  background: var(--color-red);
+  transition: right var(--transition-base);
+}
+
+.nav__link:hover { color: var(--color-text); }
+.nav__link:hover::after { right: 0; }
+
+/* ── Hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0; }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Menú móvil ── */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 9, 15, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+}
+
+.mobile-menu.is-open { opacity: 1; pointer-events: all; }
+
+.mobile-menu .nav__link {
+  font-size: 2rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   7. SECCIÓN: HERO
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--navbar-h) + var(--gap-xl)) 0 var(--gap-xl);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Orbe azul principal */
+.hero-orb {
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0, 87, 184, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -55%);
+  pointer-events: none;
+  animation: orb-drift 8s ease-in-out infinite;
+}
+
+/* Orbe rojo secundario – offset inferior derecho */
+.hero-orb-red {
+  position: absolute;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(232, 0, 61, 0.12) 0%, transparent 70%);
+  border-radius: 50%;
+  bottom: 5%; right: 8%;
+  pointer-events: none;
+  animation: orb-drift-red 10s ease-in-out infinite;
+}
+
+@keyframes orb-drift {
+  0%, 100% { transform: translate(-50%, -55%) scale(1); }
+  50%       { transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@keyframes orb-drift-red {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  50%       { transform: scale(1.12) translate(-8px, -12px); }
+}
+
+/* Línea divisora inferior del hero */
+.hero-rule {
+  position: absolute;
+  bottom: 0; left: -10%;
+  width: 120%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-xl);
+  align-items: center;
+}
+
+/* Badge de región */
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-red);
+  margin-bottom: var(--gap-md);
+}
+
+.hero__badge-line {
+  display: block;
+  width: 28px; height: 1px;
+  background: var(--color-red);
+}
+
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  margin-bottom: var(--gap-md);
+}
+
+/* "Tecnológicas" con stroke cian */
+.hero__title-accent {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-accent);
+  display: block;
+}
+
+.hero__description {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: var(--gap-lg);
+}
+
+.hero__actions {
+  display: flex;
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+}
+
+/* Panel de métricas */
+.hero__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-sm);
+}
+
+.metric-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--gap-md);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.metric-card:hover {
+  border-color: rgba(0, 87, 184, 0.5);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Barra superior – Rojo → Azul → Cian */
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--color-red),
+    var(--color-primary),
+    var(--color-accent)
+  );
+}
+
+.metric-card--featured {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+.metric__number {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  line-height: 1;
+}
+
+.metric__number--accent { color: var(--color-accent); }
+.metric__number--red    { color: var(--color-red); }
+
+.metric__label {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.3rem;
+}
+
+.metric__icon {
+  width: 40px; height: 40px;
+  background: rgba(232, 0, 61, 0.12);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.metric__icon svg { width: 20px; height: 20px; fill: var(--color-red); }
+
+/* ============================================================
+   8. SECCIÓN: IDENTIDAD
+   ============================================================ */
+#identidad {
+  padding: var(--gap-2xl) 0;
+  position: relative;
+}
+
+.identidad__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--gap-xl);
+  align-items: start;
+}
+
+.identidad__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--gap-md);
+}
+
+.identidad__body {
+  color: var(--color-text-muted);
+  font-size: 0.975rem;
+  line-height: 1.8;
+  margin-bottom: var(--gap-md);
+}
+
+.pillar-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.pillar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) var(--gap-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  transition: border-left-color var(--transition-base), background var(--transition-base);
+}
+
+.pillar-item:hover {
+  background: var(--color-surface-2);
+  border-left-color: var(--color-red);
+}
+
+.pillar-item__icon {
+  width: 32px; height: 32px;
+  background: rgba(0, 87, 184, 0.15);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-base);
+}
+
+.pillar-item:hover .pillar-item__icon {
+  background: rgba(232, 0, 61, 0.12);
+}
+
+.pillar-item__icon svg {
+  width: 16px; height: 16px;
+  fill: var(--color-accent);
+  transition: fill var(--transition-base);
+}
+
+.pillar-item:hover .pillar-item__icon svg { fill: var(--color-red); }
+
+.pillar-item__title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+
+.pillar-item__desc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+/* Stack tecnológico */
+.tech-stack {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--gap-lg);
+  /* Borde izquierdo tricolor */
+  border-left: 2px solid var(--color-red);
+}
+
+.tech-stack__title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--gap-md);
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-xs);
+}
+
+.tech-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  transition:
+    background     var(--transition-base),
+    border-color   var(--transition-base),
+    color          var(--transition-base);
+}
+
+.tech-badge:hover {
+  background: rgba(232, 0, 61, 0.08);
+  border-color: rgba(232, 0, 61, 0.35);
+  color: var(--color-text);
+}
+
+/* ============================================================
+   9. SECCIÓN: PORTAFOLIO DE PRODUCTOS
+   ============================================================ */
+#portafolio {
+  padding: var(--gap-2xl) 0;
+  position: relative;
+}
+
+.portafolio__header {
+  max-width: 680px;
+  margin-bottom: var(--gap-xl);
+}
+
+.portafolio__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--gap-sm);
+}
+
+.portafolio__subtitle {
+  font-size: 0.975rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ── Filtros de categoría ── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-xs);
+  margin-bottom: var(--gap-lg);
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  background: transparent;
+  transition:
+    background     var(--transition-base),
+    border-color   var(--transition-base),
+    color          var(--transition-base),
+    box-shadow     var(--transition-base);
+}
+
+.filter-btn:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.filter-btn.is-active {
+  background: var(--color-red);
+  border-color: var(--color-red);
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(232, 0, 61, 0.30);
+}
+
+/* ── Grilla de productos ── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-md);
+}
+
+/* ── Tarjeta de producto ── */
+.product-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--gap-lg);
+  overflow: hidden;
+  cursor: default;
+  transition:
+    transform      var(--transition-slow),
+    box-shadow     var(--transition-slow),
+    border-color   var(--transition-slow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+/* Gradiente de hover */
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 80% at 50% -10%,
+    rgba(0, 87, 184, 0.14) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--transition-slow);
+  pointer-events: none;
+}
+
+/* Barra superior coloreada */
+.product-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: var(--gap-lg); right: var(--gap-lg);
+  height: 2px;
+  background: linear-gradient(90deg,
+    var(--card-color, var(--color-primary)),
+    var(--color-accent)
+  );
+  border-radius: 0 0 2px 2px;
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: transform var(--transition-slow);
+}
+
+/* Estado hover */
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: rgba(0, 194, 255, 0.25);
+}
+
+.product-card:hover::before { opacity: 1; }
+.product-card:hover::after  { transform: scaleX(1); }
+
+/* Tarjeta ATS – glow rojo en hover */
+.product-card[data-category~="rrhh"]:hover {
+  box-shadow: var(--shadow-red);
+  border-color: rgba(232, 0, 61, 0.25);
+}
+
+/* Cabecera de tarjeta */
+.card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+}
+
+.card__icon {
+  width: 48px; height: 48px;
+  border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+  transition: background var(--transition-base), border-color var(--transition-base);
+}
+
+.product-card:hover .card__icon {
+  background: rgba(0, 87, 184, 0.15);
+  border-color: rgba(0, 87, 184, 0.4);
+}
+
+.product-card[data-category~="rrhh"]:hover .card__icon {
+  background: rgba(232, 0, 61, 0.10);
+  border-color: rgba(232, 0, 61, 0.35);
+}
+
+.card__icon svg { width: 24px; height: 24px; }
+
+/* Badges de estado */
+.card__status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2rem;
+  white-space: nowrap;
+}
+
+.status--stable {
+  background: rgba(0, 212, 138, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(0, 212, 138, 0.25);
+}
+
+.status--beta {
+  background: rgba(255, 171, 0, 0.1);
+  color: #FFAB00;
+  border: 1px solid rgba(255, 171, 0, 0.25);
+}
+
+/* "En desarrollo" → rojo */
+.status--preview {
+  background: rgba(232, 0, 61, 0.10);
+  color: var(--color-red);
+  border: 1px solid rgba(232, 0, 61, 0.28);
+}
+
+/* Cuerpo de tarjeta */
+.card__product-name {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.3rem;
+}
+
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  line-height: 1.1;
+  margin-bottom: var(--gap-xs);
+}
+
+.card__tagline {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Detalle funcional – reveal en hover */
+.card__tech-detail {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--color-border);
+  padding-top: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    max-height   var(--transition-slow),
+    opacity      var(--transition-slow),
+    transform    var(--transition-slow),
+    padding-top  var(--transition-slow);
+}
+
+.product-card:hover .card__tech-detail {
+  max-height: 220px;
+  opacity: 1;
+  transform: translateY(0);
+  padding-top: var(--gap-sm);
+}
+
+/* Tags */
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: var(--gap-sm);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 0.25rem 0.6rem;
+  background: var(--color-tag-bg);
+  border: 1px solid var(--color-tag-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.product-card:hover .tag {
+  background: rgba(0, 87, 184, 0.20);
+  color: var(--color-text);
+}
+
+/* Tags en tarjeta ATS hover → rojo */
+.product-card[data-category~="rrhh"]:hover .tag {
+  background: rgba(232, 0, 61, 0.12);
+  border-color: rgba(232, 0, 61, 0.28);
+}
+
+/* Footer de tarjeta */
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--gap-sm);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
+}
+
+.card__cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--transition-base), gap var(--transition-base);
+}
+
+.product-card:hover .card__cta {
+  color: var(--color-accent);
+  gap: 0.7rem;
+}
+
+/* CTA rojo en tarjeta ATS */
+.product-card[data-category~="rrhh"]:hover .card__cta {
+  color: var(--color-red);
+}
+
+.card__cta svg { width: 14px; height: 14px; fill: currentColor; }
+
+.card__version {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+}
+
+.product-card--featured { grid-column: span 2; }
+
+/* ============================================================
+   10. SECCIÓN: METODOLOGÍA
+   ============================================================ */
+#metodologia {
+  padding: var(--gap-2xl) 0;
+  position: relative;
+}
+
+.metodologia__inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--gap-xl);
+  align-items: start;
+}
+
+.metodologia__heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--color-white);
+  margin-bottom: var(--gap-md);
+}
+
+.metodologia__body {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+/* Timeline de fases */
+.phase-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  counter-reset: phase-counter;
+}
+
+.phase-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: var(--gap-md);
+  align-items: start;
+  padding: var(--gap-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition:
+    border-color var(--transition-base),
+    background   var(--transition-base);
+}
+
+.phase-item:hover {
+  background: var(--color-surface-2);
+  border-color: rgba(232, 0, 61, 0.35);
+}
+
+.phase-number {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-faint);
+  line-height: 1;
+  transition: color var(--transition-base);
+}
+
+.phase-item:hover .phase-number { color: var(--color-red); }
+
+.phase-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.35rem;
+}
+
+.phase-desc {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   11. SECCIÓN: CONTACTO / CTA
+   ============================================================ */
+#contacto {
+  padding: var(--gap-2xl) 0;
+}
+
+.contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--gap-xl);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap-xl);
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradiente tricolor: azul izquierda, rojo derecha */
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 55% 80% at 0% 50%,   rgba(0, 87, 184, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 100% 50%,  rgba(232, 0, 61, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Borde izquierdo rojo en contact-card */
+.contact-card::after {
+  content: '';
+  position: absolute;
+  top: var(--gap-lg); bottom: var(--gap-lg); left: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--color-red), var(--color-primary), var(--color-accent));
+  border-radius: 0 2px 2px 0;
+}
+
+.contact-card__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+  margin-bottom: var(--gap-sm);
+}
+
+.contact-card__desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+.contact-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  align-items: flex-start;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.contact-info svg { width: 14px; height: 14px; fill: var(--color-red); flex-shrink: 0; }
+
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
+#footer {
+  border-top: 1px solid transparent;
+  /* Borde superior tricolor */
+  border-image: linear-gradient(90deg,
+    var(--color-red),
+    var(--color-primary),
+    var(--color-accent),
+    var(--color-primary),
+    var(--color-red)
+  ) 1;
+  padding: var(--gap-xl) 0 var(--gap-lg);
+}
+
+.footer__inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--gap-xl);
+  margin-bottom: var(--gap-lg);
+}
+
+/* LOGO FOOTER PLACEHOLDER:
+   Reemplazar con:
+   <a href="#hero" class="footer__logo">
+     <img src="./assets/logo-fusoft-white.svg" alt="fUSoft" width="120" height="32" />
+   </a>
+*/
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: var(--gap-md);
+}
+
+.footer__tagline {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: 280px;
+  margin-bottom: var(--gap-md);
+}
+
+.footer__col-title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--gap-sm);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.footer__link {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  transition: color var(--transition-base);
+}
+
+.footer__link:hover { color: var(--color-text); }
+
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--gap-md);
+  border-top: 1px solid var(--color-border);
+  gap: var(--gap-sm);
+  flex-wrap: wrap;
+}
+
+.footer__copy {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+}
+
+.footer__legal { display: flex; gap: var(--gap-md); }
+
+.footer__legal-link {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  transition: color var(--transition-base);
+}
+
+.footer__legal-link:hover { color: var(--color-red); }
+
+/* ============================================================
+   13. SEPARADORES DE SECCIÓN
+   ============================================================ */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    var(--color-red) 20%,
+    var(--color-border) 50%,
+    var(--color-primary) 80%,
+    transparent
+  );
+  margin: 0;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   14. ANIMACIONES DE ENTRADA – IntersectionObserver
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+
+/* ============================================================
+   15. RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .hero__inner            { grid-template-columns: 1fr; }
+  .hero__metrics          { grid-template-columns: repeat(2, 1fr); }
+  .metric-card--featured  { grid-column: auto; flex-direction: column; }
+  .identidad__inner       { grid-template-columns: 1fr; }
+  .metodologia__inner     { grid-template-columns: 1fr; }
+  .products-grid          { grid-template-columns: repeat(2, 1fr); }
+  .product-card--featured { grid-column: span 2; }
+  .contact-card           { grid-template-columns: 1fr; }
+  .footer__inner          { grid-template-columns: 1fr 1fr; gap: var(--gap-lg); }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gap-2xl: 4.5rem;
+    --gap-xl:  3rem;
+    --gap-lg:  1.75rem;
+  }
+
+  .container              { padding: 0 var(--gap-md); }
+  .navbar__nav            { display: none; }
+  .hamburger              { display: flex; }
+  .products-grid          { grid-template-columns: 1fr; }
+  .product-card--featured { grid-column: auto; }
+  .hero__metrics          { grid-template-columns: repeat(2, 1fr); }
+  .tech-grid              { grid-template-columns: repeat(2, 1fr); }
+  .contact-card           { padding: var(--gap-lg); }
+  .footer__inner          { grid-template-columns: 1fr; gap: var(--gap-lg); }
+  .footer__bottom         { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .hero__actions  { flex-direction: column; }
+  .btn            { width: 100%; justify-content: center; }
+  .hero__metrics  { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   16. ACCESIBILIDAD
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-red);
+  outline-offset: 3px;
+}
