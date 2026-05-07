@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>fUSoft – Fábrica de Soluciones Tecnológicas</title>
+  <meta name="description" content="fUSoft diseña y desarrolla plataformas de software para organizaciones en sectores industriales, financieros y de servicios."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- ── CURSOR PERSONALIZADO ── -->
+<div class="cursor" id="cursor" aria-hidden="true">
+  <div class="cursor__dot"  id="cursorDot"></div>
+  <div class="cursor__ring" id="cursorRing">
+    <span class="cursor__label">VER +</span>
+  </div>
+</div>
+
+<!-- ── BARRA PROGRESO ── -->
+<div class="scroll-indicator" id="scrollBar" aria-hidden="true"></div>
+
+<!-- ── BOTÓN TEMA ── -->
+<button class="theme-toggle" id="themeToggle" aria-label="Cambiar entre tema oscuro y claro">
+  <svg class="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  <svg class="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+
+<!-- ════════════════════════════════════
+     MODAL – se llena dinámicamente con JS
+════════════════════════════════════ -->
+<div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" id="modal">
+    <button class="modal__close" id="modalClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal__hero">
+      <img id="modalHeroImg" src="" alt=""/>
+      <div class="modal__hero-overlay"></div>
+      <div class="modal__hero-label">
+        <div>
+          <div class="modal__badge-row" style="margin-bottom:0.4rem;">
+            <span class="modal__cat" id="modalCat"></span>
+            <span class="card__status" id="modalStatus"></span>
+          </div>
+          <h2 class="modal__title" id="modalTitle" style="color:white; margin-bottom:0;"></h2>
+        </div>
+      </div>
+    </div>
+    <div class="modal__content">
+      <div class="modal__desc" id="modalDesc"></div>
+      <div class="modal__section-label">Funcionalidades clave</div>
+      <div class="modal__features" id="modalFeatures"></div>
+      <div class="modal__section-label">Galería</div>
+      <div class="modal__gallery" id="modalGallery"></div>
+      <div class="modal__section-label">Tecnologías y etiquetas</div>
+      <div class="modal__tags"  id="modalTags"></div>
+      <div class="modal__actions">
+        <a href="#contacto" class="btn btn--red" id="modalCta">Solicitar información
+          <svg class="btn-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="btn btn--ghost" id="modalCloseBtn2">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     NAVBAR
+════════════════════════════════════ -->
+<header id="navbar" role="banner">
+  <div class="container">
+    <div class="navbar__inner">
+      <a href="#hero" class="navbar__logo" aria-label="fUSoft – Inicio">
+        <div class="logo-mark" aria-hidden="true">fU</div>
+        <div>
+          <div class="logo-text">fU<span>Soft</span></div>
+          <span class="logo-descriptor">Fábrica de Soluciones Tecnológicas</span>
+        </div>
+      </a>
+      <nav class="navbar__nav" aria-label="Navegación principal">
+        <a href="#identidad"   class="nav__link">Identidad</a>
+        <a href="#portafolio"  class="nav__link">Portafolio</a>
+        <a href="#metodologia" class="nav__link">Metodología</a>
+        <a href="#contacto"    class="nav__link">Contacto</a>
+        <a href="#contacto"    class="btn btn--primary">Solicitar demo</a>
+      </nav>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Menú móvil">
+  <a href="#identidad"   class="nav__link" data-menu-link>Identidad</a>
+  <a href="#portafolio"  class="nav__link" data-menu-link>Portafolio</a>
+  <a href="#metodologia" class="nav__link" data-menu-link>Metodología</a>
+  <a href="#contacto"    class="nav__link" data-menu-link>Contacto</a>
+  <a href="#contacto"    class="btn btn--primary" data-menu-link>Solicitar demo</a>
+</div>
+
+<main>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<section id="hero" aria-labelledby="hero-title">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-orb"     id="heroOrb"    aria-hidden="true"></div>
+  <div class="hero-orb-red" id="heroOrbRed" aria-hidden="true"></div>
+  <div class="hero-rule"    aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero__inner">
+
+      <div class="hero__copy">
+        <div class="hero__badge" aria-hidden="true">
+          <span class="hero__badge-line"></span>
+          Software Engineering · Colombia
+        </div>
+        <h1 class="hero__title" id="hero-title">
+          Soluciones
+          <span class="hero__title-accent">Tecnológicas</span>
+          Empresariales
+        </h1>
+        <p class="hero__description">
+          fUSoft diseña plataformas de software para organizaciones en sectores
+          <span class="typewriter" data-words="industriales,financieros,de servicios,tecnológicos" data-colors="blue,red,blue,red"></span>.
+          Arquitecturas <span class="hero__static-keyword">escalables</span> por diseño.
+        </p>
+        <div class="hero__actions">
+          <a href="#portafolio" class="btn btn--primary">Ver portafolio <svg class="btn-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="#contacto" class="btn btn--outline">Hablar con un especialista</a>
+        </div>
+      </div>
+
+      <div class="hero__metrics" aria-label="Métricas fUSoft">
+        <div class="metric-card metric-card--featured reveal">
+          <div class="metric__icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg></div>
+          <div>
+            <div class="metric__number" data-count="3">3</div>
+            <div class="metric__label">Productos en portafolio activo</div>
+          </div>
+        </div>
+        <div class="metric-card reveal reveal-delay-1">
+          <div class="metric__number metric__number--accent">99.8%</div>
+          <div class="metric__label">Disponibilidad SLA</div>
+        </div>
+        <div class="metric-card reveal reveal-delay-2">
+          <div class="metric__number">ISO</div>
+          <div class="metric__label">27001 · 9001</div>
+        </div>
+        <div class="metric-card reveal reveal-delay-3">
+          <div class="metric__number">API</div>
+          <div class="metric__label">First · REST / gRPC</div>
+        </div>
+        <div class="metric-card reveal reveal-delay-4">
+          <div class="metric__number metric__number--red">CI/CD</div>
+          <div class="metric__label">Entrega continua</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     IDENTIDAD
+════════════════════════════════════ -->
+<section id="identidad" aria-labelledby="identidad-title">
+  <div class="container">
+    <div class="identidad__inner">
+      <div>
+        <div class="section-tag">Sobre fUSoft</div>
+        <h2 class="identidad__heading reveal" id="identidad-title">Ingeniería<br>orientada<br>a resultados</h2>
+        <p class="identidad__body reveal">fUSoft opera como una fábrica de software estructurada en equipos especializados por dominio. Cada producto parte de un análisis funcional riguroso, con foco en la trazabilidad de requerimientos, la calidad del código y la operabilidad en producción.</p>
+        <p class="identidad__body reveal">Nuestros equipos trabajan bajo marcos ágiles certificados (SAFe, Scrum) con ciclos de entrega que priorizan el valor funcional verificable sobre la velocidad sin criterio.</p>
+        <div class="pillar-list">
+          <div class="pillar-item reveal reveal-delay-1">
+            <div class="pillar-item__icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div>
+            <div><div class="pillar-item__title">Seguridad por diseño</div><div class="pillar-item__desc">Controles de seguridad integrados desde la arquitectura, no como capa posterior.</div></div>
+          </div>
+          <div class="pillar-item reveal reveal-delay-2">
+            <div class="pillar-item__icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14l-5-5 1.41-1.41L12 14.17l7.59-7.59L21 8l-9 9z"/></svg></div>
+            <div><div class="pillar-item__title">Cumplimiento normativo</div><div class="pillar-item__desc">Desarrollo alineado con GDPR, Ley 1581, estándares NIST y PCI-DSS donde aplica.</div></div>
+          </div>
+          <div class="pillar-item reveal reveal-delay-3">
+            <div class="pillar-item__icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+            <div><div class="pillar-item__title">Entregas incrementales</div><div class="pillar-item__desc">Sprints de dos semanas con criterios de aceptación definidos y revisión con el cliente.</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tech-stack reveal">
+          <div class="tech-stack__title">// Stack tecnológico principal</div>
+          <div class="tech-grid">
+            <span class="tech-badge">Java 21</span><span class="tech-badge">Python 3.12</span><span class="tech-badge">Node.js</span>
+            <span class="tech-badge">Go</span><span class="tech-badge">Spring Boot</span><span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">React 18</span><span class="tech-badge">Vue 3</span><span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">PostgreSQL</span><span class="tech-badge">MongoDB</span><span class="tech-badge">Redis</span>
+            <span class="tech-badge">Kafka</span><span class="tech-badge">RabbitMQ</span><span class="tech-badge">Elasticsearch</span>
+            <span class="tech-badge">Docker</span><span class="tech-badge">Kubernetes</span><span class="tech-badge">AWS / GCP</span>
+            <span class="tech-badge">Terraform</span><span class="tech-badge">GitHub CI</span><span class="tech-badge">SonarQube</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     PORTAFOLIO
+════════════════════════════════════ -->
+<section id="portafolio" aria-labelledby="portafolio-title">
+  <div class="container">
+    <div class="portafolio__header">
+      <div class="section-tag section-tag--red">Portafolio de productos</div>
+      <h2 class="portafolio__title reveal" id="portafolio-title">Plataformas<br>especializadas</h2>
+      <p class="portafolio__subtitle reveal">Cada producto responde a una necesidad funcional concreta de la empresa moderna. Haz clic en cualquier tarjeta para ver la información completa.</p>
+    </div>
+
+    <div class="filter-bar" role="group" aria-label="Filtrar por categoría">
+      <button class="filter-btn is-active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="ia">Inteligencia Artificial</button>
+      <button class="filter-btn" data-filter="rrhh">Recursos Humanos</button>
+      <button class="filter-btn" data-filter="publicacion">Publicaciones</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <!-- ── Impulso IA ── -->
+      <article class="product-card reveal" style="--card-color:#00C2FF;" data-category="ia" data-product-id="impulso-ia" role="button" tabindex="0" aria-label="Ver detalles de Impulso IA">
+        <div class="card__image">
+          <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=600&h=200&fit=crop&crop=center" alt="Impulso IA – Inteligencia Artificial" loading="lazy"/>
+          <div class="card__image-overlay"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__header">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="3" fill="var(--color-accent)" opacity="0.9"/>
+                <path d="M12 3C7.03 3 3 7.03 3 12h2c0-3.87 3.13-7 7-7V3z" fill="var(--color-accent)" opacity="0.7"/>
+                <path d="M12 21c4.97 0 9-4.03 9-9h-2c0 3.87-3.13 7-7 7v2z" fill="var(--color-accent)" opacity="0.5"/>
+                <path d="M3 12c0 4.97 4.03 9 9 9v-2c-3.87 0-7-3.13-7-7H3z" fill="var(--color-accent)" opacity="0.35"/>
+                <path d="M21 12c0-4.97-4.03-9-9-9v2c3.87 0 7 3.13 7 7h2z" fill="var(--color-accent)" opacity="0.2"/>
+              </svg>
+            </div>
+            <span class="card__status status--beta">Beta</span>
+          </div>
+          <div class="card__product-name">fUSoft · Inteligencia Artificial</div>
+          <h3 class="card__title">Impulso IA</h3>
+          <p class="card__tagline">Plataforma de inteligencia artificial orientada a potenciar a las PYMES en su desarrollo estratégico, estructura organizacional y gestión operativa.</p>
+        </div>
+        <div class="card__tags">
+          <span class="tag">PYMES</span><span class="tag">IA Generativa</span><span class="tag">Estrategia</span><span class="tag">Organización</span>
+        </div>
+        <div class="card__click-hint">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          Clic para ver detalles completos
+        </div>
+      </article>
+
+      <!-- ── Sistema ATS ── -->
+      <article class="product-card reveal reveal-delay-1" style="--card-color:#E8003D;" data-category="rrhh ia" data-product-id="sistema-ats" role="button" tabindex="0" aria-label="Ver detalles de Sistema ATS">
+        <div class="card__image">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=200&fit=crop&crop=center" alt="Sistema ATS – Reclutamiento con IA" loading="lazy"/>
+          <div class="card__image-overlay"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__header">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="7" r="3.5" stroke="var(--color-red)" stroke-width="1.5"/>
+                <path d="M5 20c0-3.87 3.13-7 7-7s7 3.13 7 7" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M17 3l1.5 1.5L22 1" stroke="var(--color-red)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="card__status status--preview">En desarrollo</span>
+          </div>
+          <div class="card__product-name">fUSoft · Recursos Humanos</div>
+          <h3 class="card__title">Sistema ATS</h3>
+          <p class="card__tagline">Sistema de seguimiento de candidatos con agente de IA basado en Gemini para el análisis automatizado de hojas de vida y gestión del proceso de selección.</p>
+        </div>
+        <div class="card__tags">
+          <span class="tag">Gemini AI</span><span class="tag">Reclutamiento</span><span class="tag">Análisis CVs</span><span class="tag">Pipeline</span>
+        </div>
+        <div class="card__click-hint">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          Clic para ver detalles completos
+        </div>
+      </article>
+
+      <!-- ── Libro ── -->
+      <article class="product-card reveal reveal-delay-2" style="--card-color:#A78BFA;" data-category="publicacion" data-product-id="libro-ia" role="button" tabindex="0" aria-label="Ver detalles del Libro">
+        <div class="card__image">
+          <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=200&fit=crop&crop=center" alt="60 herramientas de IA para negocios" loading="lazy"/>
+          <div class="card__image-overlay"></div>
+        </div>
+        <div class="card__body">
+          <div class="card__header">
+            <div class="card__icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="var(--color-accent)" stroke-width="1.5"/>
+                <path d="M9 7h6M9 11h4" stroke="var(--color-accent)" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+              </svg>
+            </div>
+            <span class="card__status status--beta">Beta</span>
+          </div>
+          <div class="card__product-name">fUSoft · Publicación</div>
+          <h3 class="card__title">60 herramientas de IA para negocios y empresas</h3>
+          <p class="card__tagline">Publicación especializada que analiza más de 60 herramientas de inteligencia artificial con guías de uso práctico y clasificación por área de enfoque.</p>
+        </div>
+        <div class="card__tags">
+          <span class="tag">+60 IAs</span><span class="tag">Guía práctica</span><span class="tag">Negocios</span><span class="tag">Adopción IA</span>
+        </div>
+        <div class="card__click-hint">
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+          Clic para ver detalles completos
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     METODOLOGÍA – TIMELINE
+════════════════════════════════════ -->
+<section id="metodologia" aria-labelledby="metodologia-title">
+  <div class="container">
+    <div class="metodologia__intro">
+      <div>
+        <div class="section-tag">Cómo trabajamos</div>
+        <h2 class="metodologia__heading reveal" id="metodologia-title">Proceso de<br>entrega</h2>
+      </div>
+      <p class="metodologia__body reveal">Adoptamos un modelo de entrega iterativa que mantiene al cliente informado y con control de decisión en cada fase. La documentación es un artefacto de primera clase en todos nuestros proyectos.</p>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="timeline__item"><div class="timeline__dot">01</div><div class="timeline__card"><h3 class="timeline__title">Análisis funcional y arquitectónico</h3><p class="timeline__desc">Levantamiento de requerimientos, mapeo de procesos existentes y definición de la arquitectura. Entregable: documento de alcance y ADR (Architecture Decision Records).</p></div></div>
+      <div class="timeline__item"><div class="timeline__dot">02</div><div class="timeline__card"><h3 class="timeline__title">Diseño UX y prototipado</h3><p class="timeline__desc">Diseño de interfaces centrado en la eficiencia del usuario. Prototipos de alta fidelidad validados con usuarios finales antes de iniciar el desarrollo.</p></div></div>
+      <div class="timeline__item"><div class="timeline__dot">03</div><div class="timeline__card"><h3 class="timeline__title">Desarrollo con CI/CD y pruebas continuas</h3><p class="timeline__desc">Sprints de dos semanas con cobertura de pruebas unitarias mínima del 80%. Análisis estático con SonarQube y revisión de seguridad OWASP Top 10 en cada release.</p></div></div>
+      <div class="timeline__item"><div class="timeline__dot">04</div><div class="timeline__card"><h3 class="timeline__title">Despliegue y transferencia de conocimiento</h3><p class="timeline__desc">Despliegue en producción con plan de rollback documentado. Capacitación al equipo del cliente y entrega de documentación operativa completa.</p></div></div>
+      <div class="timeline__item"><div class="timeline__dot">05</div><div class="timeline__card"><h3 class="timeline__title">Soporte y mantenimiento evolutivo</h3><p class="timeline__desc">SLA de soporte según criticidad. Parches de seguridad garantizados y ciclo de mejoras evolutivas planificado trimestralmente.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════
+     CONTACTO
+════════════════════════════════════ -->
+<section id="contacto" aria-labelledby="contacto-title">
+  <div class="container">
+    <div class="contact-card reveal">
+      <div>
+        <div class="section-tag section-tag--red">Contacto</div>
+        <h2 class="contact-card__title" id="contacto-title">¿Tiene un proyecto<br>en mente?</h2>
+        <p class="contact-card__desc">Cuéntenos el contexto de su necesidad tecnológica. Un especialista analizará su caso y le propondrá un esquema de solución sin compromiso en 48 horas hábiles.</p>
+      </div>
+      <div class="contact-card__actions">
+        <a href="mailto:contacto@fusoft.co" class="btn btn--red">Enviar consulta <svg class="btn-arrow" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="tel:+57XXXXXXXXXX" class="btn btn--ghost">Llamar directamente</a>
+        <div class="contact-info"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Bogotá D.C., Colombia</div>
+        <div class="contact-info"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>contacto@fusoft.co</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer id="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <a href="#hero" class="footer__logo" aria-label="fUSoft"><div class="logo-mark" aria-hidden="true">fU</div><div><div class="logo-text">fU<span>Soft</span></div><span class="logo-descriptor">Fábrica de Soluciones Tecnológicas</span></div></a>
+        <p class="footer__tagline">Desarrollo de software empresarial con rigor de ingeniería y foco en la operabilidad a largo plazo.</p>
+      </div>
+      <nav aria-label="Productos"><div class="footer__col-title">// Productos</div><ul class="footer__links"><li><a href="#portafolio" class="footer__link">Impulso IA</a></li><li><a href="#portafolio" class="footer__link">Sistema ATS</a></li><li><a href="#portafolio" class="footer__link">60 herramientas de IA</a></li></ul></nav>
+      <nav aria-label="Empresa"><div class="footer__col-title">// Empresa</div><ul class="footer__links"><li><a href="#identidad" class="footer__link">Identidad</a></li><li><a href="#metodologia" class="footer__link">Metodología</a></li><li><a href="#contacto" class="footer__link">Contacto</a></li><li><a href="#" class="footer__link">Documentación</a></li></ul></nav>
+      <div><div class="footer__col-title">// Cumplimiento</div><ul class="footer__links"><li><span class="footer__link" style="cursor:default;">ISO 9001:2015</span></li><li><span class="footer__link" style="cursor:default;">ISO 27001:2022</span></li><li><span class="footer__link" style="cursor:default;">Ley 1581 / GDPR</span></li><li><span class="footer__link" style="cursor:default;">NIST CSF</span></li></ul></div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">&copy; <span id="footerYear"></span> fUSoft – Fábrica de Soluciones Tecnológicas S.A.S.</p>
+      <nav class="footer__legal"><a href="#" class="footer__legal-link">Privacidad</a><a href="#" class="footer__legal-link">Términos</a><a href="#" class="footer__legal-link">Cookies</a></nav>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── DATOS DE PRODUCTOS PARA EL MODAL ── */
+const PRODUCTS = {
+  'impulso-ia': {
+    name: 'Impulso IA',
+    cat: 'fUSoft · Inteligencia Artificial',
+    status: { label:'Beta', cls:'status--beta' },
+    color: '#00C2FF',
+    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&h=300&fit=crop&crop=center',
+    desc: `<p>Impulso IA es una plataforma diseñada para potenciar a las pequeñas y medianas empresas mediante el uso estratégico de la inteligencia artificial. A través de un motor de diagnóstico organizacional, identifica brechas operativas y genera recomendaciones personalizadas adaptadas al perfil específico de cada empresa.</p>
+           <p>La plataforma actúa como un asesor estratégico permanente, capaz de responder consultas de gestión en lenguaje natural, generar planes de acción concretos y hacer seguimiento del progreso organizacional a lo largo del tiempo.</p>`,
+    features: [
+      'Diagnóstico organizacional asistido por IA para identificar brechas operativas y oportunidades de mejora con análisis en tiempo real.',
+      'Recomendaciones personalizadas de estructura y procesos según el sector, tamaño y etapa de madurez de la empresa.',
+      'Acompañamiento en planificación estratégica con modelos adaptativos que evolucionan junto al negocio.',
+      'Interfaz conversacional para consultas de gestión en lenguaje natural, sin requerir conocimientos técnicos.',
+      'Panel de seguimiento con métricas de impacto y progreso organizacional mes a mes.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=400&h=180&fit=crop',
+      'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?w=400&h=180&fit=crop',
+    ],
+    tags: ['PYMES','IA Generativa','Estrategia','Organización','Diagnóstico','Planificación'],
+  },
+  'sistema-ats': {
+    name: 'Sistema ATS',
+    cat: 'fUSoft · Recursos Humanos',
+    status: { label:'En desarrollo', cls:'status--preview' },
+    color: '#E8003D',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=300&fit=crop&crop=center',
+    desc: `<p>Sistema ATS es una plataforma de seguimiento de candidatos que integra un agente de inteligencia artificial basado en Google Gemini para automatizar y enriquecer el proceso de selección de talento.</p>
+           <p>El agente analiza hojas de vida, extrae información clave, evalúa el ajuste con el perfil requerido y genera un scoring automatizado que ayuda al reclutador a tomar decisiones más informadas y consistentes, reduciendo el tiempo de selección y minimizando el sesgo en la evaluación.</p>`,
+    features: [
+      'Agente IA con Google Gemini para lectura, interpretación y scoring automatizado de hojas de vida en múltiples formatos.',
+      'Gestión del pipeline de candidatos por etapas configurables: aplicación, revisión, entrevista, oferta, contratación.',
+      'Publicación de vacantes y recepción centralizada de postulaciones desde múltiples canales.',
+      'Comparación de perfiles contra criterios definidos por el reclutador con explicabilidad del score.',
+      'Historial de decisiones y trazabilidad completa del proceso de selección para auditoría.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=400&h=180&fit=crop',
+      'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=180&fit=crop',
+    ],
+    tags: ['Gemini AI','Reclutamiento','Análisis de CVs','Pipeline','Selección','NLP'],
+  },
+  'libro-ia': {
+    name: '60 herramientas de IA para negocios y empresas',
+    cat: 'fUSoft · Publicación',
+    status: { label:'Beta', cls:'status--beta' },
+    color: '#A78BFA',
+    image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800&h=300&fit=crop&crop=center',
+    desc: `<p>Una publicación especializada que documenta, analiza y compara más de 60 herramientas de inteligencia artificial disponibles actualmente, con un enfoque práctico orientado a profesionales, equipos y organizaciones que buscan adoptar IA de forma informada y estratégica.</p>
+           <p>Cada herramienta es analizada en profundidad: qué hace, para quién es útil, cuáles son sus casos de uso más efectivos, sus limitaciones y cómo integrarse correctamente en los flujos de trabajo empresariales.</p>`,
+    features: [
+      'Análisis individual y profundo de más de 60 herramientas de IA actualmente disponibles en el mercado.',
+      'Guía de uso correcto para cada herramienta con ejemplos de prompts, flujos de trabajo y casos de aplicación concretos.',
+      'Clasificación por área de enfoque: productividad, diseño, desarrollo de software, análisis de datos, redacción y más.',
+      'Comparativas entre herramientas similares con criterios objetivos de evaluación para facilitar la elección.',
+      'Sección dedicada a estrategias de adopción de IA para equipos y organizaciones sin experiencia previa.',
+    ],
+    gallery: [
+      'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=400&h=180&fit=crop',
+      'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=180&fit=crop',
+    ],
+    tags: ['+60 IAs','Guía práctica','Negocios','Adopción IA','Referencia','Productividad'],
+  },
+};
+
+/* ── 1. AÑO FOOTER ── */
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+/* ── 2. TEMA OSCURO / CLARO ── */
+const html        = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+const saved = localStorage.getItem('fusoft-theme') || 'dark';
+html.setAttribute('data-theme', saved);
+themeToggle.addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('fusoft-theme', next);
+});
+
+/* ── 3. CURSOR PERSONALIZADO ── */
+const cursorEl   = document.getElementById('cursor');
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+const isTouchDevice = window.matchMedia('(hover: none)').matches;
+if (!isTouchDevice) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursorDot.style.left = mx + 'px';
+    cursorDot.style.top  = my + 'px';
+  });
+
+  (function animRing() {
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    cursorRing.style.left = rx + 'px';
+    cursorRing.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+
+  document.addEventListener('mouseleave', () => { cursorDot.style.opacity='0'; cursorRing.style.opacity='0'; });
+  document.addEventListener('mouseenter', () => { cursorDot.style.opacity='1'; cursorRing.style.opacity='1'; });
+
+  // Estado en tarjetas
+  document.querySelectorAll('.product-card').forEach(c => {
+    c.addEventListener('mouseenter', () => cursorEl.className = 'cursor cursor--card');
+    c.addEventListener('mouseleave', () => cursorEl.className = 'cursor');
+  });
+
+  // Estado en botones
+  document.querySelectorAll('.btn, button, .nav__link, .footer__link, .footer__legal-link').forEach(b => {
+    b.addEventListener('mouseenter', () => { if (!cursorEl.classList.contains('cursor--card')) cursorEl.className = 'cursor cursor--btn'; });
+    b.addEventListener('mouseleave', () => { if (cursorEl.classList.contains('cursor--btn')) cursorEl.className = 'cursor'; });
+  });
+}
+
+/* ── 4. PARTÍCULAS EN EL HERO ── */
+const canvas = document.getElementById('heroCanvas');
+const ctx    = canvas.getContext('2d');
+let particles = [];
+
+function resizeCanvas() {
+  canvas.width  = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+
+function initParticles() {
+  particles = [];
+  const count = Math.min(Math.floor(canvas.width / 18), 60);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,  y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.28, vy: (Math.random() - 0.5) * 0.28,
+      r: Math.random() * 1.4 + 0.4,
+      op: Math.random() * 0.35 + 0.08,
+      isRed: Math.random() > 0.72,
+    });
+  }
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const isDark = html.getAttribute('data-theme') !== 'light';
+
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = canvas.width;
+    if (p.x > canvas.width) p.x = 0;
+    if (p.y < 0) p.y = canvas.height;
+    if (p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    const alpha = isDark ? p.op : p.op * 0.5;
+    ctx.fillStyle = p.isRed
+      ? `rgba(232,0,61,${alpha})`
+      : `rgba(0,87,184,${alpha})`;
+    ctx.fill();
+  });
+
+  // Líneas de conexión
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < 90) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        const lineAlpha = (1 - d/90) * (isDark ? 0.12 : 0.06);
+        ctx.strokeStyle = `rgba(0,87,184,${lineAlpha})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas(); initParticles(); drawParticles();
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+/* ── 5. PARALLAX DE ORBES CON EL MOUSE ── */
+const heroSection = document.getElementById('hero');
+const heroOrb     = document.getElementById('heroOrb');
+const heroOrbRed  = document.getElementById('heroOrbRed');
+
+if (!isTouchDevice) {
+  heroSection.addEventListener('mousemove', e => {
+    const rect = heroSection.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width  - 0.5;
+    const y = (e.clientY - rect.top)  / rect.height - 0.5;
+    heroOrb.style.transform    = `translate(calc(-50% + ${x * 35}px), calc(-55% + ${y * 22}px)) scale(1.03)`;
+    heroOrbRed.style.transform = `translate(${x * -22}px, ${y * -16}px) scale(1.03)`;
+  });
+  heroSection.addEventListener('mouseleave', () => {
+    heroOrb.style.transform    = '';
+    heroOrbRed.style.transform = '';
+  });
+}
+
+/* ── 6. EFECTO 3D EN TARJETAS (tilt) ── */
+document.querySelectorAll('.product-card').forEach(card => {
+  if (isTouchDevice) return;
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width  - 0.5) * 14;
+    const y = ((e.clientY - rect.top)  / rect.height - 0.5) * -14;
+    card.style.transform = `translateY(-8px) rotateX(${y}deg) rotateY(${x}deg)`;
+    card.style.transition = 'box-shadow 0.3s ease, border-color 0.3s ease';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+    card.style.transition = 'transform 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease';
+  });
+});
+
+/* ── 7. TYPEWRITER ── */
+class Typewriter {
+  constructor(el) {
+    this.el = el;
+    this.words = el.dataset.words.split(',').map(w => w.trim());
+    this.colors = (el.dataset.colors || '').split(',').map(c => c.trim());
+    this.idx = 0; this.ch = 0; this.deleting = false;
+    this.tick();
+  }
+  color(i) { return this.colors[i % this.colors.length] === 'red' ? 'var(--color-red)' : 'var(--color-primary)'; }
+  tick() {
+    const word = this.words[this.idx % this.words.length];
+    this.ch = this.deleting ? Math.max(0, this.ch-1) : Math.min(word.length, this.ch+1);
+    this.el.textContent = word.substring(0, this.ch);
+    this.el.style.color = this.color(this.idx);
+    let d = this.deleting ? 55 : 95;
+    if (!this.deleting && this.ch === word.length) { d = 1800; this.deleting = true; }
+    else if (this.deleting && this.ch === 0)       { this.deleting = false; this.idx++; d = 380; }
+    setTimeout(() => this.tick(), d);
+  }
+}
+document.querySelectorAll('.typewriter').forEach(el => new Typewriter(el));
+
+/* ── 8. NAVBAR STICKY ── */
+const navbar = document.getElementById('navbar');
+const syncNavbar = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
+window.addEventListener('scroll', syncNavbar, { passive:true });
+syncNavbar();
+
+/* ── 9. BARRA DE PROGRESO ── */
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  scrollBar.style.width = pct + '%';
+}, { passive:true });
+
+/* ── 10. HAMBURGER ── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+let menuOpen = false;
+const toggleMenu = s => {
+  menuOpen = s !== undefined ? s : !menuOpen;
+  hamburgerBtn.classList.toggle('is-open', menuOpen);
+  mobileMenu.classList.toggle('is-open', menuOpen);
+  hamburgerBtn.setAttribute('aria-expanded', menuOpen);
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+};
+hamburgerBtn.addEventListener('click', () => toggleMenu());
+document.querySelectorAll('[data-menu-link]').forEach(l => l.addEventListener('click', () => toggleMenu(false)));
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) toggleMenu(false); });
+
+/* ── 11. SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const id = this.getAttribute('href');
+    if (id === '#') return;
+    const t = document.querySelector(id);
+    if (!t) return;
+    e.preventDefault();
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - navbar.offsetHeight - 16, behavior:'smooth' });
+    if (menuOpen) toggleMenu(false);
+  });
+});
+
+/* ── 12. REVEAL (IntersectionObserver) ── */
+const revealEls = document.querySelectorAll('.reveal');
+if ('IntersectionObserver' in window) {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); } });
+  }, { threshold:0.12, rootMargin:'0px 0px -48px 0px' });
+  revealEls.forEach(el => obs.observe(el));
+} else { revealEls.forEach(el => el.classList.add('is-visible')); }
+
+/* ── 13. TIMELINE REVEAL ── */
+const timelineItems = document.querySelectorAll('.timeline__item');
+if ('IntersectionObserver' in window) {
+  const tObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); tObs.unobserve(e.target); } });
+  }, { threshold:0.2, rootMargin:'0px 0px -60px 0px' });
+  timelineItems.forEach(el => tObs.observe(el));
+} else { timelineItems.forEach(el => el.classList.add('is-visible')); }
+
+/* ── 14. FILTROS DE PORTAFOLIO ── */
+const filterBtns   = document.querySelectorAll('.filter-btn');
+const productCards = document.querySelectorAll('.product-card');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    const filter = btn.dataset.filter;
+    productCards.forEach(card => {
+      const cats = (card.dataset.category || '').split(' ');
+      const match = filter === 'all' || cats.includes(filter);
+      card.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      if (match) { card.style.display=''; requestAnimationFrame(() => { card.style.opacity='1'; card.style.transform=''; }); }
+      else { card.style.opacity='0'; card.style.transform='scale(0.94)'; setTimeout(() => { card.style.display='none'; }, 300); }
+    });
+  });
+});
+
+/* ── 15. MODAL DE PRODUCTOS ── */
+const backdrop      = document.getElementById('modalBackdrop');
+const modal         = document.getElementById('modal');
+const modalClose    = document.getElementById('modalClose');
+const modalCloseBtn2 = document.getElementById('modalCloseBtn2');
+
+function openModal(productId) {
+  const data = PRODUCTS[productId];
+  if (!data) return;
+
+  // Poblar contenido
+  document.getElementById('modalHeroImg').src = data.image;
+  document.getElementById('modalHeroImg').alt = data.name;
+  document.getElementById('modalCat').textContent = data.cat;
+  document.getElementById('modalTitle').textContent = data.name;
+
+  const statusEl = document.getElementById('modalStatus');
+  statusEl.textContent  = data.status.label;
+  statusEl.className    = 'card__status ' + data.status.cls;
+
+  document.getElementById('modalDesc').innerHTML = data.desc;
+
+  document.getElementById('modalFeatures').innerHTML = data.features
+    .map(f => `<div class="modal__feature"><div class="modal__feature-dot"></div><span>${f}</span></div>`)
+    .join('');
+
+  document.getElementById('modalGallery').innerHTML = data.gallery
+    .map(url => `<div class="modal__gallery-img"><img src="${url}" alt="${data.name}" loading="lazy"/></div>`)
+    .join('');
+
+  document.getElementById('modalTags').innerHTML = data.tags
+    .map(t => `<span class="tag">${t}</span>`).join('');
+
+  // Mostrar
+  backdrop.classList.add('is-open');
+  document.body.style.overflow = 'hidden';
+  modal.scrollTop = 0;
+}
+
+function closeModal() {
+  backdrop.classList.remove('is-open');
+  document.body.style.overflow = '';
+}
+
+// Abrir desde tarjeta
+productCards.forEach(card => {
+  const open = () => { const id = card.dataset.productId; if (id) openModal(id); };
+  card.addEventListener('click', open);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+});
+
+// Cerrar modal
+modalClose.addEventListener('click', closeModal);
+modalCloseBtn2.addEventListener('click', closeModal);
+backdrop.addEventListener('click', e => { if (e.target === backdrop) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && backdrop.classList.contains('is-open')) closeModal(); });
+
+// Botón CTA dentro del modal → cerrar modal y hacer scroll a contacto
+document.getElementById('modalCta').addEventListener('click', () => { closeModal(); });
+
+/* ── 16. HIGHLIGHT NAV ACTIVO ── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.navbar__nav .nav__link');
+window.addEventListener('scroll', () => {
+  const pos = window.scrollY + navbar.offsetHeight + 80;
+  sections.forEach(sec => {
+    const inView = pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight;
+    navLinks.forEach(l => l.classList.toggle('nav__link--active', inView && l.getAttribute('href') === '#' + sec.id));
+  });
+}, { passive:true });
+</script>
+
+</body>
+</html>
