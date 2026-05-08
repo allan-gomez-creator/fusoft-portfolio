@@ -953,7 +953,88 @@ html[data-theme="light"] .hero__title-accent {
 .modal__feature:hover { background:var(--color-surface); transform:translateX(3px); }
 .modal__feature-dot { width:6px; height:6px; background:var(--color-red); border-radius:50%; flex-shrink:0; margin-top:0.55rem; }
 
-.modal__gallery { display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-sm); margin-bottom:var(--gap-lg); }
+/* ════════════════════════════════
+   GALERÍA DEL MODAL – LAYOUT MAGAZINE
+════════════════════════════════ */
+.modal__gallery { margin-bottom: 0; }
+
+.modal__gallery-intro {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  font-weight: 300;
+  font-style: italic;
+  padding: 0.9rem 1.1rem;
+  background: var(--color-surface-2);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin-bottom: var(--gap-md);
+}
+
+.modal__gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: var(--gap-lg);
+}
+
+.modal__gallery-item {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface-2);
+}
+
+.modal__gallery-item--wide {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 7;
+}
+
+.modal__gallery-item img {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.5s ease, filter 0.4s ease;
+  filter: brightness(0.88) saturate(1.05);
+}
+
+.modal__gallery-item:hover img {
+  transform: scale(1.04);
+  filter: brightness(0.95) saturate(1.15);
+}
+
+.modal__gallery-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1rem 1.1rem 0.9rem;
+  background: linear-gradient(to top, rgba(5,10,20,0.92) 0%, rgba(5,10,20,0.55) 60%, transparent 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.modal__gallery-item:hover .modal__gallery-overlay { opacity: 1; transform: translateY(0); }
+
+.modal__gallery-num {
+  font-family: var(--font-display);
+  font-size: 0.68rem; letter-spacing: 0.14em;
+  color: var(--color-accent); margin-bottom: 0.2rem; opacity: 0.85;
+}
+
+.modal__gallery-event-title {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  color: #FFFFFF; line-height: 1.2; margin-bottom: 0.4rem;
+}
+
+.modal__gallery-event-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem;
+  font-family: var(--font-mono); font-size: 0.6rem;
+  color: rgba(255,255,255,0.72); letter-spacing: 0.06em;
+}
+
+/* Compatibilidad con galería simple (otros productos) */
 .modal__gallery-img { border-radius:var(--radius-sm); overflow:hidden; height:140px; }
 .modal__gallery-img img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease; }
 .modal__gallery-img:hover img { transform:scale(1.05); }
@@ -1010,7 +1091,7 @@ html[data-theme="light"] .hero__title-accent {
    FOOTER
 ══════════════════════════════════════════════════ */
 #footer { border-top:1px solid transparent; border-image:linear-gradient(90deg, var(--color-red), var(--color-primary), var(--color-accent), var(--color-primary), var(--color-red)) 1; padding:var(--gap-xl) 0 var(--gap-lg); }
-.footer__inner { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:var(--gap-xl); margin-bottom:var(--gap-lg); }
+.footer__inner { display:grid; grid-template-columns:2fr 1fr 1fr; gap:var(--gap-xl); margin-bottom:var(--gap-lg); }
 .footer__logo { display:flex; align-items:center; gap:0.65rem; margin-bottom:var(--gap-md); }
 .footer__tagline { font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.8; max-width:280px; margin-bottom:var(--gap-md); font-weight:300; }
 .footer__col-title { font-family:var(--font-mono); font-size:var(--text-xs); letter-spacing:0.12em; text-transform:uppercase; color:var(--color-text-faint); margin-bottom:var(--gap-sm); }
@@ -1047,7 +1128,7 @@ html[data-theme="light"] .hero__title-accent {
   .products-grid      { grid-template-columns:repeat(2,1fr); }
   .contact-card       { grid-template-columns:1fr; }
   .footer__inner      { grid-template-columns:1fr 1fr; gap:var(--gap-lg); }
-  .modal__gallery     { grid-template-columns:1fr; }
+  .modal__gallery-grid { grid-template-columns:1fr 1fr; }
 }
 
 @media (max-width:768px) {
@@ -1063,14 +1144,30 @@ html[data-theme="light"] .hero__title-accent {
   .footer__bottom { flex-direction:column; align-items:flex-start; }
   .timeline       { padding-left:56px; }
   .timeline__dot  { left:-56px; width:38px; height:38px; font-size:0.85rem; }
-  .modal__content { padding:var(--gap-md) var(--gap-lg); }
-  .modal__hero    { height:200px; }
+  /* Modal sube desde abajo en móvil */
+  .modal-backdrop  { padding:0; align-items:flex-end; }
+  .modal           { max-height:95vh; border-radius:var(--radius-md) var(--radius-md) 0 0; }
+  .modal__content  { padding:var(--gap-md) var(--gap-lg); }
+  .modal__hero     { height:180px; }
+  .modal__hero-label { left:var(--gap-md); right:var(--gap-md); bottom:var(--gap-md); }
+  .modal__actions  { flex-direction:column; }
+  .modal__actions .btn { width:100%; justify-content:center; }
+  /* Galería 1 col en móvil, overlay siempre visible */
+  .modal__gallery-grid           { grid-template-columns:1fr; }
+  .modal__gallery-item--wide     { grid-column:auto; aspect-ratio:4/3; }
+  .modal__gallery-overlay        { opacity:1; transform:translateY(0); }
+  .theme-toggle   { bottom:var(--gap-md); right:var(--gap-md); width:42px; height:42px; }
 }
 
 @media (max-width:480px) {
-  .hero__actions { flex-direction:column; }
-  .btn { width:100%; justify-content:center; }
-  .hero__metrics { grid-template-columns:1fr; }
+  .hero__actions  { flex-direction:column; }
+  .btn            { width:100%; justify-content:center; }
+  .hero__metrics  { grid-template-columns:1fr; }
+  .filter-bar     { gap:0.35rem; }
+  .filter-btn     { font-size:0.62rem; padding:0.38rem 0.7rem; }
+  .modal__title   { font-size:1.5rem; }
+  .modal__gallery-event-meta { flex-direction:column; gap:0.2rem; }
+  .cursor         { display:none; }
 }
 
 :focus-visible { outline:2px solid var(--color-red); outline-offset:3px; }
