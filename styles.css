@@ -76,25 +76,25 @@ html[data-theme="light"] .logo-img { filter: none; }
 
 html[data-theme="light"] .light-deco { opacity: 1; }
 
-/* ── Blob azul grande – esquina superior derecha ── */
+/* ── Blob azul grande – Blueprint (esquina superior derecha) ── */
 .light-deco__blob-blue {
   position: absolute; top: -120px; right: -120px;
   width: 520px; height: 520px; border-radius: 50%;
   background: radial-gradient(circle at 40% 40%,
-    rgba(0,87,184,0.13) 0%,
-    rgba(0,194,255,0.06) 50%,
+    rgba(0,87,184,0.12) 0%,
+    rgba(0,194,255,0.05) 50%,
     transparent 70%
   );
   animation: blob-drift-1 14s ease-in-out infinite;
 }
 
-/* ── Blob rojo pequeño – esquina inferior izquierda ── */
+/* ── Blob azul secundario – Blueprint (esquina inferior izquierda) ── */
 .light-deco__blob-red {
   position: absolute; bottom: -80px; left: -80px;
   width: 380px; height: 380px; border-radius: 50%;
   background: radial-gradient(circle at 60% 60%,
-    rgba(232,0,61,0.10) 0%,
-    rgba(232,0,61,0.04) 50%,
+    rgba(0,87,184,0.09) 0%,
+    rgba(0,87,184,0.03) 50%,
     transparent 70%
   );
   animation: blob-drift-2 18s ease-in-out infinite;
@@ -155,20 +155,20 @@ html[data-theme="light"] .light-deco { opacity: 1; }
   to   { transform: rotate(360deg); }
 }
 
-/* ── Puntos – esquina superior izquierda ── */
+/* ── Puntos – esquina superior derecha – Blueprint ── */
 .light-deco__dots-tr {
   position: absolute; top: 100px; right: 60px;
   width: 120px; height: 120px;
-  background-image: radial-gradient(circle at 1px 1px, rgba(0,87,184,0.22) 1.5px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,87,184,0.28) 1.5px, transparent 0);
   background-size: 16px 16px;
   animation: dots-fade 6s ease-in-out infinite;
 }
 
-/* ── Puntos – esquina inferior derecha ── */
+/* ── Puntos – esquina inferior izquierda – Blueprint ── */
 .light-deco__dots-bl {
   position: absolute; bottom: 100px; left: 80px;
   width: 100px; height: 100px;
-  background-image: radial-gradient(circle at 1px 1px, rgba(232,0,61,0.18) 1.5px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,87,184,0.20) 1.5px, transparent 0);
   background-size: 14px 14px;
   animation: dots-fade 8s ease-in-out infinite reverse;
 }
@@ -260,16 +260,17 @@ html[data-theme="light"] .mobile-menu {
 }
 
 
+/* ── VARIABLES CLARO – Blueprint Técnico ── */
 html[data-theme="light"] {
-  --color-bg:          #F5F0E8;
-  --color-surface:     #FDF9F4;
-  --color-surface-2:   #EDE7DC;
-  --color-border:      #D5CBB8;
-  --color-text:        #1A1208;
-  --color-text-muted:  #6B5940;
-  --color-text-faint:  #B8A898;
-  --color-tag-bg:      rgba(0,87,184,0.07);
-  --color-tag-border:  rgba(0,87,184,0.20);
+  --color-bg:          #E4EDF8;   /* Papel de plano azul pálido      */
+  --color-surface:     #EEF4FF;   /* Superficie elevada               */
+  --color-surface-2:   #D8E6F5;   /* Superficie de fondo              */
+  --color-border:      #A8C0E0;   /* Bordes azulados                  */
+  --color-text:        #08152A;   /* Navy profundo                    */
+  --color-text-muted:  #2A4668;   /* Navy medio                       */
+  --color-text-faint:  #6A8AAE;   /* Navy suave                       */
+  --color-tag-bg:      rgba(0,87,184,0.10);
+  --color-tag-border:  rgba(0,87,184,0.28);
 }
 
 /* ══════════════════════════════════════════════════
@@ -296,8 +297,8 @@ body {
 
 html[data-theme="light"] body {
   background-image:
-    radial-gradient(ellipse 70% 50% at 50% -5%, rgba(0,87,184,0.06) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 30% at 100% 100%, rgba(232,0,61,0.04) 0%, transparent 60%);
+    radial-gradient(ellipse 60% 50% at 90% 5%,  rgba(0,87,184,0.12) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 35% at 5%  95%, rgba(0,87,184,0.08) 0%, transparent 60%);
 }
 
 /* Cuadrícula decorativa oscuro */
@@ -310,11 +311,16 @@ body::before {
   mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 30%, transparent 80%);
 }
 
-/* Cuadrícula claro – patrón de puntos editorial */
+/* Blueprint – cuadrícula de dos niveles (como papel de plano) */
 html[data-theme="light"] body::before {
-  background-image: radial-gradient(circle at 1px 1px, rgba(90,70,50,0.14) 1px, transparent 0);
-  background-size: 28px 28px;
-  mask-image: none; opacity: 0.9;
+  background-image:
+    linear-gradient(rgba(0,87,184,0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,184,0.14) 1px, transparent 1px),
+    linear-gradient(rgba(0,87,184,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,87,184,0.06) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 16px 16px, 16px 16px;
+  mask-image: none;
+  opacity: 1;
 }
 
 ::selection { background: rgba(0,194,255,0.25); color: var(--color-white); }
@@ -487,15 +493,15 @@ button { font-family: inherit; border: none; background: none; }
 
 /* Botón Linktree */
 .btn--linktree {
-  background: transparent;
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
+  background: rgba(57,176,136,0.08);
+  color: #39B088;
+  border: 1px solid rgba(57,176,136,0.40);
 }
 .btn--linktree:hover {
-  background: rgba(57,176,136,0.10);
+  background: rgba(57,176,136,0.16);
   border-color: #39B088;
   color: #39B088;
-  box-shadow: 0 0 16px rgba(57,176,136,0.18);
+  box-shadow: 0 0 16px rgba(57,176,136,0.20);
 }
 
 .btn-arrow { transition: transform var(--transition-base); }
@@ -581,7 +587,7 @@ html[data-theme="light"] #navbar.scrolled {
 .hamburger.is-open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
 .mobile-menu { position:fixed; inset:0; background:rgba(7,9,15,0.97); backdrop-filter:blur(20px); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--gap-lg); opacity:0; pointer-events:none; transition:opacity var(--transition-slow); }
-html[data-theme="light"] .mobile-menu { background:rgba(245,240,232,0.97); }
+html[data-theme="light"] .mobile-menu { background:rgba(228,237,248,0.97); }
 .mobile-menu.is-open { opacity:1; pointer-events:all; }
 .mobile-menu .nav__link { font-size:2.4rem; font-family:var(--font-display); letter-spacing:0.1em; color:var(--color-text); }
 
@@ -601,7 +607,7 @@ html[data-theme="light"] .mobile-menu { background:rgba(245,240,232,0.97); }
   animation:orb-drift 8s ease-in-out infinite;
   transition: transform 0.1s linear;
 }
-html[data-theme="light"] .hero-orb { background:radial-gradient(circle, rgba(0,87,184,0.09) 0%, transparent 70%); }
+html[data-theme="light"] .hero-orb { background:radial-gradient(circle, rgba(0,87,184,0.16) 0%, transparent 70%); }
 
 .hero-orb-red {
   position:absolute; width:340px; height:340px;
@@ -610,7 +616,7 @@ html[data-theme="light"] .hero-orb { background:radial-gradient(circle, rgba(0,8
   animation:orb-drift-red 10s ease-in-out infinite;
   transition: transform 0.15s linear;
 }
-html[data-theme="light"] .hero-orb-red { background:radial-gradient(circle, rgba(232,0,61,0.07) 0%, transparent 70%); }
+html[data-theme="light"] .hero-orb-red { background:radial-gradient(circle, rgba(0,87,184,0.08) 0%, transparent 70%); }
 
 @keyframes orb-drift {
   0%,100% { transform:translate(-50%,-55%) scale(1); }
@@ -1068,3 +1074,91 @@ html[data-theme="light"] .hero__title-accent {
 }
 
 :focus-visible { outline:2px solid var(--color-red); outline-offset:3px; }
+
+/* ════════════════════════════════════════════════════
+   BLUEPRINT LIGHT – OVERRIDES ESPECÍFICOS
+════════════════════════════════════════════════════ */
+
+/* Navbar Blueprint */
+html[data-theme="light"] #navbar.scrolled {
+  background: rgba(228,237,248,0.92) !important;
+  box-shadow: 0 1px 0 #A8C0E0, 0 8px 32px rgba(0,87,184,0.14) !important;
+}
+
+/* Título hero Blueprint */
+html[data-theme="light"] .hero__title {
+  background: linear-gradient(150deg, #08152A 15%, #1A3A6B 100%);
+  -webkit-background-clip: text; background-clip: text;
+}
+
+/* ── TARJETA DE CONTACTO OSCURA ── */
+html[data-theme="light"] .contact-card {
+  background: #0D1B2E;
+  border-color: #1E3A6E;
+}
+html[data-theme="light"] .contact-card__title { color: #E8EEF7; }
+html[data-theme="light"] .contact-card__desc  { color: rgba(216,226,248,0.65); }
+html[data-theme="light"] .contact-info        { color: rgba(216,226,248,0.50); }
+
+/* ── BOTONES CON TONO OSCURO EN BLUEPRINT ── */
+
+/* Primario → navy profundo */
+html[data-theme="light"] .btn--primary {
+  background: #0D1B2E;
+  color: #E8EEF7;
+}
+html[data-theme="light"] .btn--primary:hover {
+  background: #172540;
+  box-shadow: 0 8px 28px rgba(13,27,46,0.42), 0 0 0 1px rgba(0,87,184,0.30);
+}
+
+/* Ghost → borde navy oscuro */
+html[data-theme="light"] .btn--ghost {
+  color: #0D1B2E;
+  border-color: rgba(13,27,46,0.32);
+  background: rgba(13,27,46,0.06);
+}
+html[data-theme="light"] .btn--ghost:hover {
+  background: rgba(13,27,46,0.14);
+  border-color: rgba(13,27,46,0.55);
+  color: #0D1B2E;
+}
+
+/* Linktree → borde navy */
+html[data-theme="light"] .btn--linktree {
+  color: rgba(13,27,46,0.70);
+  border-color: rgba(13,27,46,0.22);
+  background: transparent;
+}
+html[data-theme="light"] .btn--linktree:hover {
+  background: rgba(13,27,46,0.10);
+  border-color: #0D1B2E;
+  color: #0D1B2E;
+  box-shadow: none;
+}
+
+/* Theme toggle Blueprint */
+html[data-theme="light"] .theme-toggle {
+  background: #EEF4FF;
+  box-shadow: 0 4px 20px rgba(0,87,184,0.20);
+  border-color: #A8C0E0;
+}
+
+/* Selection en Blueprint */
+html[data-theme="light"] ::selection {
+  background: rgba(0,87,184,0.25);
+  color: #08152A;
+}
+
+/* Filtros activos en Blueprint → navy */
+html[data-theme="light"] .filter-btn.is-active {
+  background: #0D1B2E;
+  border-color: #0D1B2E;
+  color: #E8EEF7;
+  box-shadow: 0 4px 14px rgba(13,27,46,0.30);
+}
+
+/* Footer Blueprint */
+html[data-theme="light"] #footer {
+  border-image: linear-gradient(90deg, #A8C0E0, #0057B8, #00C2FF, #0057B8, #A8C0E0) 1;
+}
