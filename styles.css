@@ -1222,16 +1222,32 @@ html[data-theme="light"] .btn--ghost:hover {
 }
 
 /* Linktree → borde navy */
+/* Linktree en modo claro (fuera de la tarjeta de contacto) */
 html[data-theme="light"] .btn--linktree {
   color: rgba(13,27,46,0.70);
-  border-color: rgba(13,27,46,0.22);
-  background: transparent;
+  border-color: rgba(13,27,46,0.25);
+  background: rgba(13,27,46,0.06);
 }
 html[data-theme="light"] .btn--linktree:hover {
-  background: rgba(13,27,46,0.10);
+  background: rgba(13,27,46,0.12);
   border-color: #0D1B2E;
   color: #0D1B2E;
   box-shadow: none;
+}
+
+/* Linktree DENTRO de la tarjeta de contacto oscura → siempre verde */
+html[data-theme="light"] .contact-card .btn--linktree,
+.contact-card .btn--linktree {
+  color: #39B088;
+  border-color: rgba(57,176,136,0.45);
+  background: rgba(57,176,136,0.10);
+}
+html[data-theme="light"] .contact-card .btn--linktree:hover,
+.contact-card .btn--linktree:hover {
+  color: #39B088;
+  border-color: #39B088;
+  background: rgba(57,176,136,0.18);
+  box-shadow: 0 0 16px rgba(57,176,136,0.20);
 }
 
 /* Theme toggle Blueprint */
