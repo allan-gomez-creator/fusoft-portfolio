@@ -44,7 +44,8 @@
 
 /* ── LOGO IMAGEN ── */
 .logo-img {
-  height: 42px;
+  height: 40px;
+  margin-top: 5px;
   width: auto;
   object-fit: contain;
   display: block;
@@ -774,6 +775,23 @@ html[data-theme="light"] .hero__title-accent {
 ══════════════════════════════════════════════════ */
 #identidad { padding:var(--gap-2xl) 0; position:relative; }
 .identidad__inner { display:grid; grid-template-columns:1fr 1fr; gap:var(--gap-xl); align-items:start; }
+/* Variante de columna única (cuando el marquee va debajo) */
+.identidad__inner--single { display:block; max-width:780px; }
+
+/* Stack tecnológico como banda completa debajo del texto */
+.tech-stack-section {
+  margin-top: var(--gap-xl);
+  overflow: hidden;
+}
+
+.tech-stack-section .tech-stack__title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-bottom: var(--gap-md);
+}
 
 .identidad__heading, .portafolio__title, .metodologia__heading, .contact-card__title {
   font-family: var(--font-display);
@@ -798,11 +816,24 @@ html[data-theme="light"] .hero__title-accent {
 .pillar-item__title { font-size:var(--text-sm); font-weight:700; color:var(--color-text); margin-bottom:0.2rem; }
 .pillar-item__desc  { font-size:var(--text-xs); color:var(--color-text-muted); line-height:1.65; }
 
-.tech-stack { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--gap-lg); border-left:2px solid var(--color-red); }
-.tech-stack__title { font-family:var(--font-mono); font-size:var(--text-xs); letter-spacing:0.12em; text-transform:uppercase; color:var(--color-text-faint); margin-bottom:var(--gap-md); }
-.tech-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap-xs); }
-.tech-badge { display:flex; align-items:center; justify-content:center; padding:0.5rem 0.75rem; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-muted); text-align:center; transition:background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-fast); }
-.tech-badge:hover { background:rgba(232,0,61,0.08); border-color:rgba(232,0,61,0.35); color:var(--color-text); transform:scale(1.05); }
+/* Tech Stack */
+.tech-stack { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius-lg); padding:var(--gap-lg) 0; border-left:2px solid var(--color-red); overflow:hidden; }
+.tech-stack__title { font-family:var(--font-mono); font-size:var(--text-xs); letter-spacing:0.12em; text-transform:uppercase; color:var(--color-text-faint); margin-bottom:var(--gap-md); padding:0 var(--gap-lg); }
+
+/* ══ MARQUEE INFINITO ══ */
+.tech-marquee { display:flex; flex-direction:column; gap:0.6rem; -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0%,black 8%,black 92%,transparent 100%); }
+.tech-marquee__track { overflow:hidden; width:100%; }
+.tech-marquee__inner { display:flex; gap:0.6rem; width:max-content; flex-shrink:0; }
+.tech-marquee__inner--left  { animation:marquee-left  22s linear infinite; }
+.tech-marquee__inner--right { animation:marquee-right 26s linear infinite; }
+.tech-marquee__inner--slow  { animation-duration:30s; }
+.tech-marquee:hover .tech-marquee__inner { animation-play-state:paused; }
+
+@keyframes marquee-left  { from{transform:translateX(0)}        to{transform:translateX(-33.333%)} }
+@keyframes marquee-right { from{transform:translateX(-33.333%)} to{transform:translateX(0)} }
+
+.tech-badge { display:inline-flex; align-items:center; justify-content:center; padding:0.52rem 1rem; background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-muted); letter-spacing:0.06em; white-space:nowrap; flex-shrink:0; transition:background var(--transition-base), border-color var(--transition-base), color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base); }
+.tech-badge:hover { background:rgba(232,0,61,0.08); border-color:rgba(232,0,61,0.35); color:var(--color-text); transform:translateY(-2px); box-shadow:0 4px 12px rgba(232,0,61,0.15); }
 
 /* ══════════════════════════════════════════════════
    PORTAFOLIO + TARJETAS 3D
@@ -1138,7 +1169,9 @@ html[data-theme="light"] .hero__title-accent {
   .hamburger      { display:flex; }
   .products-grid  { grid-template-columns:1fr; }
   .hero__metrics  { grid-template-columns:repeat(2,1fr); }
-  .tech-grid      { grid-template-columns:repeat(2,1fr); }
+  .tech-marquee__inner--left  { animation-duration:15s; }
+  .tech-marquee__inner--right { animation-duration:18s; }
+  .tech-marquee__inner--slow  { animation-duration:20s; }
   .contact-card   { padding:var(--gap-lg); }
   .footer__inner  { grid-template-columns:1fr; gap:var(--gap-lg); }
   .footer__bottom { flex-direction:column; align-items:flex-start; }
